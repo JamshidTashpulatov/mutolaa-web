@@ -1,0 +1,223 @@
+import type { Dictionary } from "../types";
+
+const uz: Dictionary = {
+  shell: {
+    skipToContent: "Asosiy tarkibga o‘tish",
+    sidebarMenu: "Yon panel menyusi",
+    closeSidebarOverlay: "Menyuni yopish",
+  },
+  brand: "Mutolaa",
+  nav: {
+    home: "Asosiy",
+    sidebarHome: "Bosh sahifa (sidebar)",
+    genres: "Janrlar",
+    shelf: "Javon",
+    library: "Kutubxona",
+    collections: "To‘plamlar",
+    catalog: "Katalog",
+    allCatalog: "Barcha katalog",
+    megaMenuHeading: "Kategoriyalar",
+    megaCategories: {
+      tarixiy: "Tarixiy",
+      hajviy: "Hajviy",
+      sarguzasht: "Sarguzasht",
+      "badiiy-asar": "Badiiy asar",
+      doston: "Doston",
+      "bolalar-adabiyoti": "Bolalar adabiyoti",
+      dramaturgiya: "Dramaturgiya",
+      hikoya: "Hikoya",
+      uygonish: "Uyg‘onish",
+      "diniy-marifiy": "Diniy-ma’rifiy",
+      "ilmiy-ommabop": "Ilmiy-ommabop",
+      folklor: "Folklor",
+      sher: "She’r",
+      roman: "Roman",
+      ertaklar: "Ertaklar",
+      avtobiografik: "Avtobiografik",
+      jadidlar: "Jadidlar",
+      qissa: "Qissa",
+      konstitutsiya: "Konstitutsiya",
+    },
+  },
+  header: {
+    searchPlaceholder: "Kitob, muallif…",
+    premium: "Premium",
+    openInApp: "Ilovada ochish",
+    appModalTitle: "Mutolaa mobil ilovasi",
+    appModalBody:
+      "Ilovani yuklab oling — oflayn o‘qish, xatcho‘plar va qurilmalar o‘rtasida sinxronlash uchun.",
+    appStore: "App Store",
+    googlePlay: "Google Play",
+    profileLabel: "Profil menyusi",
+    profileSettings: "Sozlamalar",
+    profileHistory: "O‘qish tarixi",
+    profileLogout: "Chiqish",
+    profileCollections: "To‘plamlar",
+    profileDarkMode: "Tungi rejim",
+    languageMenu: "Til",
+  },
+  libraryPage: {
+    intro:
+      "Shaxsiy javloningiz va o‘qish tarixi bu yerda paydo bo‘ladi. Hozircha katalogdan tanlang.",
+    openCatalog: "Katalogni ochish",
+  },
+  premiumPage: {
+    intro:
+      "Premium imkoniyatlari tez orada ochiladi. Hozircha barcha kitoblarni bepul katalogdan o‘qing.",
+  },
+  footer: {
+    rights: "Barcha huquqlar himoyalangan.",
+    about: "Loyiha haqida",
+    help: "Yordam",
+    contact: "Aloqa",
+    collections: "To‘plamlar",
+    getApp: "Ilovani yuklab olish",
+    follow: "Ijtimoiy tarmoqlar",
+  },
+  locale: {
+    uz: "O‘zbekcha",
+    ru: "Русский",
+    en: "English",
+  },
+  shelf: {
+    sampleRail: "Namunaviy javlon",
+  },
+  book: {
+    open: "O‘qish",
+    coverFallback: "Muqova",
+    yearLabel: "Yil",
+    synopsis: "Qisqacha",
+    reviewsHeading: "Mutolaachilar fikri",
+    backToCatalog: "Katalogga qaytish",
+    readSample: "Parcha o‘qish",
+    ratingLabel: "O‘rtacha baho",
+    readMutolaa: "Mutolaa qilish",
+    listen: "Tinglash",
+    listenUnavailable: "Audiokitob tez orada",
+    readerClose: "Yopish",
+    readerEmpty: "Matn hozircha mavjud emas.",
+    readerPrev: "Oldingi",
+    readerNext: "Keyingi",
+    readerLoading: "Kitob yuklanmoqda…",
+    readerError: "EPUB ochilmadi. Internet yoki fayl manbasini tekshiring.",
+  },
+  review: {
+    sectionTitle: "Namunaviy taqriz",
+  },
+  patterns: {
+    books: [
+      { title: "O‘tgan kunlar", author: "Abdulla Qodiriy" },
+      { title: "Kecha va kunduz", author: "Cho‘lpon" },
+    ],
+    reviewQuote:
+      "Asarning til boyligi va tasvirlarining ravonligi mutolaani yoqimli qiladi.",
+    reviewAttribution: "Tanlangan mutolaachi",
+  },
+  home: {
+    entry: {
+      headline: "Adabiyotni sokinlik bilan kashf eting",
+      supporting:
+        "Tanlangan asarlarni tartibli mutolaa uchun joylashtirgan kitob platformasi. O‘zbek va jahon klasikasidan boshlang.",
+      primaryCta: "Kitoblarni ko‘rish",
+      secondaryApp: "Mobil ilovada o‘qing — oflayn va sinxronlash.",
+      featuredWorkLabel: "Tanlangan asar",
+      readFeatured: "O‘qishni boshlash",
+    },
+    discovery: {
+      title: "Muharrir tanlovi",
+      subtitle: "Bugungi mutola uchun uchta yo‘nalish",
+    },
+    shelf: {
+      mostRead: "Eng ko‘p o‘qiladiganlar",
+      newlyAdded: "Yangi qo‘shilganlar",
+      recommendations: "Sizga tavsiya etamiz",
+      audiobooks: "Audiokitoblar",
+      uzbekLiterature: "O‘zbek adabiyoti",
+      worldLiterature: "Jahon adabiyoti",
+    },
+    genreHubTitle: "Kategoriyalar",
+    curatedHeading: "Mazmunli to‘plamlar",
+    curatedCollections: {
+      overnight: {
+        title: "Bir kechalik kitoblar",
+        description:
+          "Qisqa vaqt ichida yakunlash mumkin bo‘lgan asarlar — tinch oqshom uchun.",
+      },
+      goals: {
+        title: "Maqsad qo‘yish",
+        description:
+          "O‘qish odatini mustahkamlash va o‘z ustingizda izchil ishlash uchun tanlov.",
+      },
+      romance: {
+        title: "Sevgi qissalari",
+        description:
+          "Insoniy munosabatlar va ijodiy ifoda orqali o‘qiladigan romanlar.",
+      },
+      children: {
+        title: "Bolalar uchun tanlov",
+        description:
+          "Yosh mutolaachi uchun soddalashtirilgan va mazmunli asarlar.",
+      },
+      comics: {
+        title: "Komikslardan boshlash",
+        description:
+          "Rasmli hikoya formatida adabiyot bilan tanishishni istaganlar uchun.",
+      },
+    },
+    seeAll: "Barchasi",
+    details: "Batafsil",
+    formatAudiobook: "Audiokitob",
+    closingNote:
+      "Har bir javlon ma’lum maqsad bilan tanlangan — takroriy ro‘yxat emas, yo‘l-yo‘riq.",
+  },
+  homeV2: {
+    searchPlaceholder: "Kitob yoki muallif izlang…",
+    heroTitle: "Har bir sahifa yangi bir boshlanish",
+    heroSubtitle:
+      "O‘qish va tinglash uchun tanlangan kitoblar — qulay qidiruv va janrlar bilan birga.",
+    heroCta: "Mutolaani boshlash",
+    allBooksTitle: "Barcha kitoblar",
+    shelfStarter: "Boshlash uchun 5 kitob",
+    shelfShortestAudio: "Eng qisqa audiokitoblar",
+    seeAll: "Barchasi →",
+    sidebar: {
+      home: "Asosiy sahifa",
+      collections: "To‘plamlar",
+      audiobooks: "Audiokitoblar",
+      fiction: "Badiiy asarlar",
+      science: "Ilmiy kitoblar",
+      about: "Loyiha haqida",
+      help: "Yordam markazi",
+      languagePrefix: "Til",
+    },
+    auth: {
+      login: "Kirish",
+      register: "Ro‘yxatdan o‘tish",
+    },
+    collapse: "Yon panelni yig‘ish",
+    expand: "Yon panelni kengaytirish",
+  },
+  catalog: {
+    title: "Katalog",
+    description: "Janr va nom bo‘yicha qidiring.",
+    searchLabel: "Qidiruv",
+    searchPlaceholder: "Kitob yoki muallif…",
+    genreLabel: "Janr",
+    genres: {
+      all: "Hammasi",
+      novel: "Roman",
+      poetry: "She’riyat",
+      drama: "Drama",
+      essays: "Hikoya va esselar",
+      folklore: "Folklor",
+    },
+    empty: "Hech narsa topilmadi.",
+    resultsLine: "{count} ta kitob",
+  },
+  breadcrumbs: {
+    home: "Bosh sahifa",
+    catalog: "Katalog",
+  },
+};
+
+export default uz;

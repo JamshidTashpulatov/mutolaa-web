@@ -1,0 +1,223 @@
+import type { Dictionary } from "../types";
+
+const ru: Dictionary = {
+  shell: {
+    skipToContent: "Перейти к содержимому",
+    sidebarMenu: "Меню боковой панели",
+    closeSidebarOverlay: "Закрыть меню",
+  },
+  brand: "Mutolaa",
+  nav: {
+    home: "Главная",
+    sidebarHome: "Главная (сайдбар)",
+    genres: "Жанры",
+    shelf: "Полка",
+    library: "Библиотека",
+    collections: "Подборки",
+    catalog: "Каталог",
+    allCatalog: "Весь каталог",
+    megaMenuHeading: "Категории",
+    megaCategories: {
+      tarixiy: "Историческая литература",
+      hajviy: "Сатира и юмор",
+      sarguzasht: "Приключения",
+      "badiiy-asar": "Художественное произведение",
+      doston: "Дастан",
+      "bolalar-adabiyoti": "Детская литература",
+      dramaturgiya: "Драматургия",
+      hikoya: "Рассказ",
+      uygonish: "Просвещение",
+      "diniy-marifiy": "Религиозно-нравственная",
+      "ilmiy-ommabop": "Научно-популярная",
+      folklor: "Фольклор",
+      sher: "Поэзия",
+      roman: "Роман",
+      ertaklar: "Сказки",
+      avtobiografik: "Автобиографическая проза",
+      jadidlar: "Джадиды",
+      qissa: "Повесть",
+      konstitutsiya: "Конституция и право",
+    },
+  },
+  header: {
+    searchPlaceholder: "Книга, автор…",
+    premium: "Премиум",
+    openInApp: "Открыть в приложении",
+    appModalTitle: "Приложение Mutolaa",
+    appModalBody:
+      "Скачайте приложение — для чтения офлайн, закладок и синхронизации между устройствами.",
+    appStore: "App Store",
+    googlePlay: "Google Play",
+    profileLabel: "Меню профиля",
+    profileSettings: "Настройки",
+    profileHistory: "История чтения",
+    profileLogout: "Выйти",
+    profileCollections: "Подборки",
+    profileDarkMode: "Тёмная тема",
+    languageMenu: "Язык",
+  },
+  libraryPage: {
+    intro:
+      "Здесь появятся ваша полка и история чтения. Пока выберите книгу в каталоге.",
+    openCatalog: "Открыть каталог",
+  },
+  premiumPage: {
+    intro:
+      "Возможности Premium скоро появятся. Пока все книги доступны в каталоге бесплатно.",
+  },
+  footer: {
+    rights: "Все права защищены.",
+    about: "О проекте",
+    help: "Помощь",
+    contact: "Контакты",
+    collections: "Подборки",
+    getApp: "Скачать приложение",
+    follow: "Соцсети",
+  },
+  locale: {
+    uz: "O‘zbekcha",
+    ru: "Русский",
+    en: "English",
+  },
+  shelf: {
+    sampleRail: "Пример полки",
+  },
+  book: {
+    open: "Читать",
+    coverFallback: "Обложка",
+    yearLabel: "Год",
+    synopsis: "Аннотация",
+    reviewsHeading: "Отзывы читателей",
+    backToCatalog: "Назад в каталог",
+    readSample: "Читать фрагмент",
+    ratingLabel: "Средняя оценка",
+    readMutolaa: "Читать",
+    listen: "Слушать",
+    listenUnavailable: "Аудиокнига скоро",
+    readerClose: "Закрыть",
+    readerEmpty: "Текст пока недоступен.",
+    readerPrev: "Назад",
+    readerNext: "Вперёд",
+    readerLoading: "Загрузка книги…",
+    readerError: "Не удалось открыть EPUB. Проверьте сеть или источник файла.",
+  },
+  review: {
+    sectionTitle: "Пример рецензии",
+  },
+  patterns: {
+    books: [
+      { title: "Прошлые дни", author: "Абдулла Кадыри" },
+      { title: "Ночь и день", author: "Чулпон" },
+    ],
+    reviewQuote:
+      "Богатство языка и ясность образов делают чтение особенно приятным.",
+    reviewAttribution: "Читатель",
+  },
+  home: {
+    entry: {
+      headline: "Открывайте литературу без спешки",
+      supporting:
+        "Платформа с отобранными книгами для спокойного чтения. Начните с узбекской и мировой классики.",
+      primaryCta: "Смотреть книги",
+      secondaryApp: "В приложении — офлайн и синхронизация.",
+      featuredWorkLabel: "Избранное произведение",
+      readFeatured: "Начать чтение",
+    },
+    discovery: {
+      title: "Выбор редакции",
+      subtitle: "Три направления для чтения сегодня",
+    },
+    shelf: {
+      mostRead: "Самые читаемые",
+      newlyAdded: "Новые поступления",
+      recommendations: "Рекомендуем вам",
+      audiobooks: "Аудиокниги",
+      uzbekLiterature: "Узбекская литература",
+      worldLiterature: "Мировая литература",
+    },
+    genreHubTitle: "Категории",
+    curatedHeading: "Тематические подборки",
+    curatedCollections: {
+      overnight: {
+        title: "Книги на один вечер",
+        description:
+          "Произведения, которые можно закончить за короткое время — для тихого вечера.",
+      },
+      goals: {
+        title: "Цели и привычки",
+        description:
+          "Подборка для тех, кто выстраивает регулярное чтение и дисциплину.",
+      },
+      romance: {
+        title: "Истории о любви",
+        description:
+          "Романы, в которых главное — человеческие отношения и переживания.",
+      },
+      children: {
+        title: "Для детей",
+        description:
+          "Доступные по языку и содержанию книги для юных читателей.",
+      },
+      comics: {
+        title: "С комиксов",
+        description:
+          "Если хотите познакомиться с литературой через визуальный рассказ.",
+      },
+    },
+    seeAll: "Все",
+    details: "Подробнее",
+    formatAudiobook: "Аудиокнига",
+    closingNote:
+      "Каждая полка собрана с задачей — это не повтор одного и того же списка, а ориентир для чтения.",
+  },
+  homeV2: {
+    searchPlaceholder: "Найти книгу или автора…",
+    heroTitle: "Каждая страница — новое начало",
+    heroSubtitle:
+      "Чтение и аудио подобраны для вас — с быстрым поиском и жанрами под рукой.",
+    heroCta: "Начать читать в Mutolaa",
+    allBooksTitle: "Все книги",
+    shelfStarter: "5 книг для старта",
+    shelfShortestAudio: "Самые короткие аудиокниги",
+    seeAll: "Все →",
+    sidebar: {
+      home: "Главная",
+      collections: "Подборки",
+      audiobooks: "Аудиокниги",
+      fiction: "Художественная литература",
+      science: "Научно-популярное",
+      about: "О проекте",
+      help: "Центр помощи",
+      languagePrefix: "Язык",
+    },
+    auth: {
+      login: "Войти",
+      register: "Регистрация",
+    },
+    collapse: "Свернуть панель",
+    expand: "Развернуть панель",
+  },
+  catalog: {
+    title: "Каталог",
+    description: "Поиск по названию, автору и жанру.",
+    searchLabel: "Поиск",
+    searchPlaceholder: "Книга или автор…",
+    genreLabel: "Жанр",
+    genres: {
+      all: "Все",
+      novel: "Роман",
+      poetry: "Поэзия",
+      drama: "Драма",
+      essays: "Рассказы и эссе",
+      folklore: "Фольклор",
+    },
+    empty: "Ничего не найдено.",
+    resultsLine: "Найдено: {count}",
+  },
+  breadcrumbs: {
+    home: "Главная",
+    catalog: "Каталог",
+  },
+};
+
+export default ru;

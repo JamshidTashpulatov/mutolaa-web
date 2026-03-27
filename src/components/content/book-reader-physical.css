@@ -1,0 +1,214 @@
+/**
+ * Physical open-book treatment for the EPUB flip reader.
+ * Kept subtle: believable gutter + paper light, no glossy 3D.
+ */
+
+/* --- Reading surface (desk) --- */
+.reader-physical-root {
+  --reader-paper-base: #ebe4d8;
+  --reader-paper-top: #faf6ef;
+  --reader-paper-mid: #ede6da;
+  --reader-paper-low: #e2d8ca;
+  --reader-ink: #1c1917;
+  --reader-gutter-deep: rgba(12, 10, 8, 0.22);
+  --reader-gutter-mid: rgba(28, 22, 18, 0.11);
+  --reader-edge-stack: rgba(0, 0, 0, 0.045);
+}
+
+.reader-physical-root {
+  background-color: #b8b0a5;
+  background-image: radial-gradient(
+    ellipse 92% 78% at 50% 42%,
+    #d0c9bf 0%,
+    #bdb5aa 52%,
+    #a69e93 100%
+  );
+}
+
+/* --- Outer volume: object on surface --- */
+.reader-physical-volume {
+  position: relative;
+  z-index: 1;
+  border-radius: 3px;
+  filter: drop-shadow(0 26px 42px rgba(16, 12, 10, 0.2))
+    drop-shadow(0 10px 20px rgba(16, 12, 10, 0.09));
+}
+
+@media (max-width: 719px) {
+  .reader-physical-volume {
+    filter: drop-shadow(0 16px 28px rgba(16, 12, 10, 0.16))
+      drop-shadow(0 6px 12px rgba(16, 12, 10, 0.07));
+  }
+}
+
+/* Dark board / cover block under open pages */
+.reader-physical-board {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    #35302c 0%,
+    #2a2522 45%,
+    #1a1816 50%,
+    #262220 55%,
+    #38332f 100%
+  );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
+    inset 0 3px 14px rgba(0, 0, 0, 0.32),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0.92;
+}
+
+/* Narrow spine crease — strongest depth cue */
+.reader-physical-spine {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+  width: 11px;
+  margin-left: 0;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(32, 28, 25, 0.55) 0%,
+    rgba(8, 7, 6, 0.95) 42%,
+    rgba(4, 3, 3, 1) 50%,
+    rgba(10, 9, 8, 0.95) 58%,
+    rgba(30, 26, 23, 0.55) 100%
+  );
+  box-shadow:
+    inset 0 0 8px rgba(0, 0, 0, 0.55),
+    inset 0 0 2px rgba(255, 255, 255, 0.06),
+    0 0 14px rgba(0, 0, 0, 0.12);
+}
+
+/* Flip canvas sits above board, below spine strip in middle — actually spine should be behind flip pages when closed... For open spread, spine visible in gutter. z-index: flip inner 3 */
+.reader-physical-flip-inner {
+  position: relative;
+  z-index: 3;
+}
+
+/* --- Paper faces --- */
+.reader-page--paper {
+  position: relative;
+  isolation: isolate;
+  color: var(--reader-ink);
+  border-radius: 1px;
+  background-color: var(--reader-paper-base);
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 252, 247, 0.55) 0%,
+      rgba(255, 255, 255, 0) 18%
+    ),
+    linear-gradient(
+      175deg,
+      var(--reader-paper-top) 0%,
+      var(--reader-paper-mid) 42%,
+      var(--reader-paper-low) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -2px 6px rgba(45, 38, 32, 0.04);
+}
+
+/* Top + gentle bottom falloff (binding dip hint at top center via asymmetry on pages) */
+.reader-page--paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 1px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0) 16%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(55, 48, 40, 0.03) 0%,
+      rgba(55, 48, 40, 0) 14%
+    );
+}
+
+/* Left page (verso): shadow builds toward right — gutter */
+.reader-page--verso::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 1px;
+  background:
+    linear-gradient(
+      to right,
+      var(--reader-edge-stack) 0%,
+      transparent 10%,
+      transparent 54%,
+      var(--reader-gutter-mid) 74%,
+      var(--reader-gutter-deep) 92%,
+      rgba(6, 5, 4, 0.26) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.08) 98%,
+      transparent 100%
+    );
+}
+
+/* Right page (recto): mirror gutter */
+.reader-page--recto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 1px;
+  background:
+    linear-gradient(
+      to left,
+      var(--reader-edge-stack) 0%,
+      transparent 10%,
+      transparent 54%,
+      var(--reader-gutter-mid) 74%,
+      var(--reader-gutter-deep) 92%,
+      rgba(6, 5, 4, 0.26) 100%
+    ),
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.08) 98%,
+      transparent 100%
+    );
+}
+
+@media (max-width: 719px) {
+  .reader-page--verso::after,
+  .reader-page--recto::after {
+    opacity: 0.88;
+  }
+}
+
+/* Hard cover page */
+.reader-page--cover {
+  position: relative;
+  border-radius: 2px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 -6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Text layer above lighting overlays */
+.reader-page__content {
+  position: relative;
+  z-index: 1;
+}

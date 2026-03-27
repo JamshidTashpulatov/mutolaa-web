@@ -1,5 +1,5 @@
 {
-  "name": "mutolaa-scaffold",
+  "name": "mutolaa-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,15 +9,20 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@heroui/react": "^3.0.1",
+    "@heroui/styles": "^3.0.1",
+    "epubjs": "^0.3.93",
     "next": "16.2.1",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-pageflip": "^2.0.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "agentation": "^3.0.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",

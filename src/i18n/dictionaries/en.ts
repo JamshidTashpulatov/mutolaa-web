@@ -1,0 +1,223 @@
+import type { Dictionary } from "../types";
+
+const en: Dictionary = {
+  shell: {
+    skipToContent: "Skip to content",
+    sidebarMenu: "Sidebar menu",
+    closeSidebarOverlay: "Close menu",
+  },
+  brand: "Mutolaa",
+  nav: {
+    home: "Home",
+    sidebarHome: "Home (sidebar)",
+    genres: "Genres",
+    shelf: "Shelf",
+    library: "Library",
+    collections: "Collections",
+    catalog: "Catalog",
+    allCatalog: "Full catalog",
+    megaMenuHeading: "Categories",
+    megaCategories: {
+      tarixiy: "Historical",
+      hajviy: "Satire & humor",
+      sarguzasht: "Adventure",
+      "badiiy-asar": "Literary fiction",
+      doston: "Epic poetry (dastan)",
+      "bolalar-adabiyoti": "Children’s literature",
+      dramaturgiya: "Drama",
+      hikoya: "Short story",
+      uygonish: "Enlightenment / reform",
+      "diniy-marifiy": "Religious & moral",
+      "ilmiy-ommabop": "Popular science",
+      folklor: "Folklore",
+      sher: "Poetry",
+      roman: "Novel",
+      ertaklar: "Fairy tales",
+      avtobiografik: "Autobiographical",
+      jadidlar: "Jadid movement",
+      qissa: "Novella",
+      konstitutsiya: "Constitution & law",
+    },
+  },
+  header: {
+    searchPlaceholder: "Book, author…",
+    premium: "Premium",
+    openInApp: "Open in app",
+    appModalTitle: "Mutolaa mobile app",
+    appModalBody:
+      "Download the app for offline reading, bookmarks, and sync across your devices.",
+    appStore: "App Store",
+    googlePlay: "Google Play",
+    profileLabel: "Profile menu",
+    profileSettings: "Settings",
+    profileHistory: "Reading history",
+    profileLogout: "Sign out",
+    profileCollections: "Collections",
+    profileDarkMode: "Dark mode",
+    languageMenu: "Language",
+  },
+  libraryPage: {
+    intro:
+      "Your shelf and reading history will live here. For now, browse the catalog.",
+    openCatalog: "Open catalog",
+  },
+  premiumPage: {
+    intro:
+      "Premium features are coming soon. For now, enjoy the full catalog for free.",
+  },
+  footer: {
+    rights: "All rights reserved.",
+    about: "About",
+    help: "Help",
+    contact: "Contact",
+    collections: "Collections",
+    getApp: "Get the app",
+    follow: "Social",
+  },
+  locale: {
+    uz: "O‘zbekcha",
+    ru: "Русский",
+    en: "English",
+  },
+  shelf: {
+    sampleRail: "Sample shelf",
+  },
+  book: {
+    open: "Read",
+    coverFallback: "Cover",
+    yearLabel: "Year",
+    synopsis: "About",
+    reviewsHeading: "Reader voices",
+    backToCatalog: "Back to catalog",
+    readSample: "Read a sample",
+    ratingLabel: "Average rating",
+    readMutolaa: "Read",
+    listen: "Listen",
+    listenUnavailable: "Audiobook coming soon",
+    readerClose: "Close",
+    readerEmpty: "No extract is available yet.",
+    readerPrev: "Previous",
+    readerNext: "Next",
+    readerLoading: "Loading book…",
+    readerError: "Could not open this EPUB. Check your connection or file URL.",
+  },
+  review: {
+    sectionTitle: "Sample review",
+  },
+  patterns: {
+    books: [
+      { title: "Days Gone By", author: "Abdulla Qodiriy" },
+      { title: "Night and Day", author: "Cho‘lpon" },
+    ],
+    reviewQuote:
+      "The richness of the language and the clarity of the images make the reading especially pleasant.",
+    reviewAttribution: "Reader",
+  },
+  home: {
+    entry: {
+      headline: "Discover literature, calmly",
+      supporting:
+        "A reading platform built around curated works—start with Uzbek classics and voices from world literature.",
+      primaryCta: "Browse books",
+      secondaryApp: "Read on mobile—offline and synced.",
+      featuredWorkLabel: "Featured work",
+      readFeatured: "Start reading",
+    },
+    discovery: {
+      title: "Editor’s picks",
+      subtitle: "Three directions worth your time today",
+    },
+    shelf: {
+      mostRead: "Most read",
+      newlyAdded: "Newly added",
+      recommendations: "Recommended for you",
+      audiobooks: "Audiobooks",
+      uzbekLiterature: "Uzbek literature",
+      worldLiterature: "World literature",
+    },
+    genreHubTitle: "Categories",
+    curatedHeading: "Curated collections",
+    curatedCollections: {
+      overnight: {
+        title: "One-evening reads",
+        description:
+          "Books you can finish in a short sitting—perfect for a quiet night.",
+      },
+      goals: {
+        title: "Goals & habits",
+        description:
+          "For readers building a steady practice and clearer reading rhythm.",
+      },
+      romance: {
+        title: "Love stories",
+        description:
+          "Novels where relationships and emotional truth carry the narrative.",
+      },
+      children: {
+        title: "For young readers",
+        description:
+          "Accessible language and thoughtful stories for children.",
+      },
+      comics: {
+        title: "Start with comics",
+        description:
+          "A gentle entry through visual storytelling and sequential art.",
+      },
+    },
+    seeAll: "See all",
+    details: "Details",
+    formatAudiobook: "Audiobook",
+    closingNote:
+      "Each shelf is chosen with intent—fewer repeats, clearer paths into reading.",
+  },
+  homeV2: {
+    searchPlaceholder: "Search for a book or author…",
+    heroTitle: "Every page is a new beginning",
+    heroSubtitle:
+      "Reading and listening, curated for you—with quick search and genres close at hand.",
+    heroCta: "Start reading on Mutolaa",
+    allBooksTitle: "All books",
+    shelfStarter: "5 books to get started",
+    shelfShortestAudio: "Shortest audiobooks",
+    seeAll: "See all →",
+    sidebar: {
+      home: "Home",
+      collections: "Collections",
+      audiobooks: "Audiobooks",
+      fiction: "Fiction",
+      science: "Non-fiction & science",
+      about: "About the project",
+      help: "Help center",
+      languagePrefix: "Language",
+    },
+    auth: {
+      login: "Log in",
+      register: "Sign up",
+    },
+    collapse: "Collapse sidebar",
+    expand: "Expand sidebar",
+  },
+  catalog: {
+    title: "Catalog",
+    description: "Search by title, author, or genre.",
+    searchLabel: "Search",
+    searchPlaceholder: "Book or author…",
+    genreLabel: "Genre",
+    genres: {
+      all: "All",
+      novel: "Novel",
+      poetry: "Poetry",
+      drama: "Drama",
+      essays: "Stories & essays",
+      folklore: "Folklore",
+    },
+    empty: "No matches.",
+    resultsLine: "{count} books",
+  },
+  breadcrumbs: {
+    home: "Home",
+    catalog: "Catalog",
+  },
+};
+
+export default en;
