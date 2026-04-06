@@ -212,3 +212,173 @@
   position: relative;
   z-index: 1;
 }
+
+/* Dynamic typography from toolbar */
+.reader-page-body-text {
+  font-size: var(--reader-font-size, 1rem);
+  line-height: 1.68;
+}
+
+/* User highlights & in-text search */
+.reader-user-highlight {
+  background-color: rgba(250, 204, 21, 0.42);
+  color: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.reader-search-hit {
+  background-color: rgba(251, 191, 36, 0.28);
+  color: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.reader-search-hit--current {
+  background-color: rgba(245, 158, 11, 0.45);
+  outline: 2px solid rgba(217, 119, 6, 0.85);
+  outline-offset: 1px;
+}
+
+/* --- Dark reading theme (toolbar) --- */
+.reader-physical-root.reader-theme-dark {
+  --reader-paper-base: #2c2926;
+  --reader-paper-top: #353230;
+  --reader-paper-mid: #2a2825;
+  --reader-paper-low: #1f1d1b;
+  --reader-ink: #e7e5e4;
+  --reader-gutter-deep: rgba(0, 0, 0, 0.5);
+  --reader-gutter-mid: rgba(0, 0, 0, 0.28);
+  --reader-edge-stack: rgba(0, 0, 0, 0.25);
+  /* Qog‘oz yuzasidagi yorqin oq highlight (light theme qoldig‘i) */
+  --reader-paper-shine-top: rgba(255, 255, 255, 0.045);
+  --reader-paper-shine-mid: rgba(255, 255, 255, 0);
+  --reader-paper-edge-glint: rgba(255, 255, 255, 0.04);
+}
+
+.reader-physical-root.reader-theme-dark {
+  background-color: #1c1917;
+  background-image: radial-gradient(
+    ellipse 92% 78% at 50% 42%,
+    #292524 0%,
+    #1c1917 55%,
+    #0c0a09 100%
+  );
+  color: var(--reader-ink);
+}
+
+.reader-physical-root.reader-theme-dark .reader-user-highlight {
+  background-color: rgba(234, 179, 8, 0.35);
+}
+
+.reader-physical-root.reader-theme-dark .reader-search-hit {
+  background-color: rgba(251, 191, 36, 0.2);
+}
+
+.reader-physical-root.reader-theme-dark .reader-search-hit--current {
+  background-color: rgba(245, 158, 11, 0.35);
+  outline-color: rgba(251, 191, 36, 0.9);
+}
+
+/* Qorong‘u rejim: betlardagi oq gradientlarni tema bilan moslash */
+.reader-physical-root.reader-theme-dark .reader-page--paper {
+  background-image:
+    linear-gradient(
+      180deg,
+      var(--reader-paper-shine-top) 0%,
+      var(--reader-paper-shine-mid) 22%
+    ),
+    linear-gradient(
+      175deg,
+      var(--reader-paper-top) 0%,
+      var(--reader-paper-mid) 42%,
+      var(--reader-paper-low) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.reader-physical-root.reader-theme-dark .reader-page--paper::before {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035) 0%,
+      rgba(255, 255, 255, 0) 12%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0) 16%
+    );
+}
+
+.reader-physical-root.reader-theme-dark .reader-page--verso::after {
+  background:
+    linear-gradient(
+      to right,
+      var(--reader-edge-stack) 0%,
+      transparent 10%,
+      transparent 54%,
+      var(--reader-gutter-mid) 74%,
+      var(--reader-gutter-deep) 92%,
+      rgba(0, 0, 0, 0.35) 100%
+    ),
+    linear-gradient(
+      to right,
+      var(--reader-paper-edge-glint) 98%,
+      transparent 100%
+    );
+}
+
+.reader-physical-root.reader-theme-dark .reader-page--recto::after {
+  background:
+    linear-gradient(
+      to left,
+      var(--reader-edge-stack) 0%,
+      transparent 10%,
+      transparent 54%,
+      var(--reader-gutter-mid) 74%,
+      var(--reader-gutter-deep) 92%,
+      rgba(0, 0, 0, 0.35) 100%
+    ),
+    linear-gradient(
+      to left,
+      var(--reader-paper-edge-glint) 98%,
+      transparent 100%
+    );
+}
+
+.reader-physical-root.reader-theme-dark .reader-physical-volume {
+  filter: drop-shadow(0 20px 36px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+}
+
+/* Bottom reader toolbar */
+.reader-bottom-toolbar {
+  box-shadow:
+    0 4px 24px rgba(15, 12, 10, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+.reader-physical-root.reader-theme-dark .reader-bottom-toolbar {
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+
+/* Toolbar: ikonlar va switch qorong‘u fonda o‘qilishi */
+.reader-physical-root.reader-theme-dark .reader-bottom-toolbar--dark {
+  color: #fafafa;
+}
+
+.reader-physical-root.reader-theme-dark .reader-bottom-toolbar--dark svg {
+  stroke: #fafafa;
+  color: #fafafa;
+}
+
+.reader-physical-root.reader-theme-dark
+  .reader-bottom-toolbar--dark
+  [data-slot="switch"] {
+  color: #fafafa;
+}

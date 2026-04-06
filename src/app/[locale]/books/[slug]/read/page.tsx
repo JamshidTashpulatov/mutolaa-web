@@ -91,9 +91,9 @@ export default async function BookReadPage({ params }: PageProps) {
     <BookEpubFlipReader
       epubUrl={epubUrl}
       title={book.title}
-      author={book.author}
       coverFallbackUrl={book.coverUrl}
       backHref={backHref}
+      readerStorageId={slug}
       labels={{
         close: d.book.readerClose,
         prev: d.book.readerPrev,
@@ -101,6 +101,25 @@ export default async function BookReadPage({ params }: PageProps) {
         loading: d.book.readerLoading,
         error: d.book.readerError,
         empty: d.book.readerEmpty,
+        readerToolbarHighlight: d.book.readerToolbarHighlight,
+        readerToolbarSearch: d.book.readerToolbarSearch,
+        readerToolbarLight: d.book.readerToolbarLight,
+        readerToolbarDark: d.book.readerToolbarDark,
+        readerToolbarThemeToggle: d.book.readerToolbarThemeToggle,
+        readerToolbarFontSize: d.book.readerToolbarFontSize,
+        readerToolbarFontFamily: d.book.readerToolbarFontFamily,
+        readerToolbarSmaller: d.book.readerToolbarSmaller,
+        readerToolbarLarger: d.book.readerToolbarLarger,
+        readerToolbarSearchPlaceholder: d.book.readerToolbarSearchPlaceholder,
+        readerToolbarSearchPrev: d.book.readerToolbarSearchPrev,
+        readerToolbarSearchNext: d.book.readerToolbarSearchNext,
+        readerToolbarMatchOf: d.book.readerToolbarMatchOf,
+        readerToolbarNoMatches: d.book.readerToolbarNoMatches,
+        readerToolbarSelectTextHint: d.book.readerToolbarSelectTextHint,
+        readerFontSerifGeorgia: d.book.readerFontSerifGeorgia,
+        readerFontSerifPalatino: d.book.readerFontSerifPalatino,
+        readerFontSerifCharter: d.book.readerFontSerifCharter,
+        readerFontSans: d.book.readerFontSans,
       }}
     />
   );

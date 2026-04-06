@@ -87,6 +87,26 @@ export type Dictionary = {
     readerNext: string;
     readerLoading: string;
     readerError: string;
+    readerToolbarHighlight: string;
+    readerToolbarSearch: string;
+    readerToolbarLight: string;
+    readerToolbarDark: string;
+    /** Reader ichidagi yorug‘/qorong‘u — bitta switch uchun */
+    readerToolbarThemeToggle: string;
+    readerToolbarFontSize: string;
+    readerToolbarFontFamily: string;
+    readerToolbarSmaller: string;
+    readerToolbarLarger: string;
+    readerToolbarSearchPlaceholder: string;
+    readerToolbarSearchPrev: string;
+    readerToolbarSearchNext: string;
+    readerToolbarMatchOf: string;
+    readerToolbarNoMatches: string;
+    readerToolbarSelectTextHint: string;
+    readerFontSerifGeorgia: string;
+    readerFontSerifPalatino: string;
+    readerFontSerifCharter: string;
+    readerFontSans: string;
   };
   review: {
     sectionTitle: string;

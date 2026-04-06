@@ -13,6 +13,11 @@ import { HomeShelfSlotContext } from "./home-shelf-slot-context";
 type HomeBookRowProps = {
   children: ReactNode;
   className?: string;
+  /**
+   * `true` (default): full-bleed rail (negative horizontal margin) for AppContainer layouts.
+   * `false`: stay inside padded parents (e.g. home-sidebar) to avoid horizontal scroll bugs.
+   */
+  bleed?: boolean;
 };
 
 function shelfColumns(scrollWidth: number): number {
@@ -39,7 +44,11 @@ function parseGapPx(track: HTMLElement): number {
  * Home rails: card width = floor((scrollWidth − track padding − (cols−1)·gap) / cols)
  * so whole columns fit in the viewport (no half-cut cover on the right).
  */
-export function HomeBookRow({ children, className }: HomeBookRowProps) {
+export function HomeBookRow({
+  children,
+  className,
+  bleed = true,
+}: HomeBookRowProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [slotPx, setSlotPx] = useState(148);
 
@@ -91,7 +100,13 @@ export function HomeBookRow({ children, className }: HomeBookRowProps) {
 
   return (
     <HomeShelfSlotContext.Provider value={slotPx}>
-      <div className={cn("relative min-w-0 -mx-4 sm:-mx-6", className)}>
+      <div
+        className={cn(
+          "relative min-w-0 max-w-full",
+          bleed ? "-mx-4 sm:-mx-6" : "mx-0",
+          className,
+        )}
+      >
         <div
           ref={scrollRef}
           className={cn(
@@ -105,8 +120,9 @@ export function HomeBookRow({ children, className }: HomeBookRowProps) {
             className={cn(
               "flex w-max max-w-none flex-nowrap items-start gap-2.5 sm:gap-3",
               "py-4 pb-5 pt-3 sm:py-5 sm:pb-6 sm:pt-4",
-              "ps-4 pe-4 sm:ps-6 sm:pe-6",
-              "scroll-pl-3 scroll-pr-4 sm:scroll-pl-5 sm:scroll-pr-6",
+              bleed
+                ? "ps-4 pe-4 sm:ps-6 sm:pe-6 scroll-pl-3 scroll-pr-4 sm:scroll-pl-5 sm:scroll-pr-6"
+                : "ps-1 pe-1 sm:ps-2 sm:pe-2 scroll-pl-1 scroll-pr-1 sm:scroll-pl-2 sm:scroll-pr-2",
             )}
           >
             {children}

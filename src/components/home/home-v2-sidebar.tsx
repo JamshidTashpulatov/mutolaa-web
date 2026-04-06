@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { Suspense, useMemo } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Suspense, type ReactNode } from "react";
 import {
   Dropdown,
   IconChevronDown,
@@ -15,10 +15,6 @@ import { locales, type Locale } from "@/i18n/config";
 import { useDictionary } from "@/i18n/dictionary-context";
 import { MutolaaLogo } from "@/components/brand/mutolaa-logo";
 import { NavbarSearch } from "@/components/layout/navbar-search";
-import {
-  MEGA_NAV_ITEMS,
-  megaNavCategoryHref,
-} from "@/lib/nav-mega-categories";
 
 function pathWithoutLocale(pathname: string, locale: Locale) {
   const parts = pathname.split("/").filter(Boolean);
@@ -33,6 +29,21 @@ const LOCALE_FLAGS: Record<Locale, string> = {
   ru: "\u{1F1F7}\u{1F1FA}",
   en: "\u{1F1EC}\u{1F1E7}",
 };
+
+/** Audiokitoblar menyusi — katalogda `section=audio` (filtr emas, faol holat uchun). */
+export const HOME_V2_CATALOG_AUDIO_SECTION = "audio";
+
+function catalogAudioHref(locale: string) {
+  return `/${locale}/catalog?section=${HOME_V2_CATALOG_AUDIO_SECTION}`;
+}
+
+function catalogFictionHref(locale: string) {
+  return `/${locale}/catalog?genre=novel`;
+}
+
+function catalogScienceHref(locale: string) {
+  return `/${locale}/catalog?genre=essays`;
+}
 
 function IconHome({ className }: { className?: string }) {
   return (
@@ -136,6 +147,46 @@ function IconFlask({ className }: { className?: string }) {
   );
 }
 
+function IconInfo({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 16v-4" />
+      <path d="M12 8h.01" />
+    </svg>
+  );
+}
+
+function IconHelpCircle({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+      <path d="M12 17h.01" />
+    </svg>
+  );
+}
+
 function IconPanelLeft({ className }: { className?: string }) {
   return (
     <svg
@@ -157,52 +208,92 @@ function IconPanelLeft({ className }: { className?: string }) {
 }
 
 export type HomeV2SidebarProps = {
-  collapsed: boolean;
-  onToggleCollapse: () => void;
+  collapsed?: boolean;
+  onToggleCollapse?: () => void;
   onNavigate?: () => void;
   className?: string;
 };
 
-export function HomeV2Sidebar({
+function SidebarNavLink({
+  href,
+  active,
   collapsed,
+  icon,
+  children,
+  onNavigate,
+  ariaLabel,
+}: {
+  href: string;
+  active: boolean;
+  collapsed?: boolean;
+  icon: ReactNode;
+  children: ReactNode;
+  onNavigate?: () => void;
+  ariaLabel?: string;
+}) {
+  return (
+    <Link
+      href={href}
+      aria-label={ariaLabel}
+      onClick={onNavigate}
+      className={cn(
+        "flex h-11 w-full min-w-0 shrink-0 items-center gap-3 rounded-xl px-3 text-sm font-medium transition-colors",
+        "outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FF6900]",
+        active
+          ? "bg-white text-neutral-900 shadow-sm ring-1 ring-neutral-200/90"
+          : "text-neutral-600 hover:bg-white/70 hover:text-neutral-900",
+        collapsed && "justify-center px-0",
+      )}
+    >
+      <span className={cn("shrink-0 text-neutral-500", collapsed && "mx-auto")}>
+        {icon}
+      </span>
+      {!collapsed ? (
+        <span className="min-w-0 flex-1 truncate text-left leading-snug">
+          {children}
+        </span>
+      ) : null}
+    </Link>
+  );
+}
+
+function HomeV2SidebarInner({
+  collapsed = false,
   onToggleCollapse,
   onNavigate,
   className,
 }: HomeV2SidebarProps) {
   const { dictionary: d, locale } = useDictionary();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const rest = pathWithoutLocale(pathname, locale);
 
-  const fictionItem = useMemo(
-    () => MEGA_NAV_ITEMS.find((i) => i.id === "badiiy-asar")!,
-    [],
-  );
-  const scienceItem = useMemo(
-    () => MEGA_NAV_ITEMS.find((i) => i.id === "ilmiy-ommabop")!,
-    [],
-  );
+  const genre = searchParams.get("genre");
+  const section = searchParams.get("section");
+  const onCatalog = pathname.includes("/catalog");
 
   const isHomeActive =
     pathname === `/${locale}/home-sidebar` ||
     pathname === `/${locale}/home-sidebar/`;
 
-  const navBtn = (active: boolean) =>
-    cn(
-      buttonVariants({ variant: "ghost", size: "sm" }),
-      "h-11 w-full gap-3 rounded-xl px-3 font-medium transition-colors",
-      active
-        ? "bg-white text-neutral-900 shadow-sm ring-1 ring-neutral-200/80"
-        : "text-neutral-600 hover:bg-white/60 hover:text-neutral-900",
-      collapsed && "justify-center px-0",
-    );
+  const isCollectionsActive = pathname.includes("/collections");
 
-  const iconClass = "size-5 shrink-0 text-neutral-500";
+  const isAudioActive =
+    onCatalog &&
+    section === HOME_V2_CATALOG_AUDIO_SECTION &&
+    !genre;
+
+  const isFictionActive = onCatalog && genre === "novel";
+
+  const isScienceActive = onCatalog && genre === "essays";
+
+  const iconClass = "size-5";
 
   return (
     <div
       className={cn(
-        "flex h-full min-h-0 flex-col gap-5 py-6",
-        collapsed ? "px-2" : "px-4",
+        "flex h-full min-h-0 flex-col gap-4 py-5",
+        collapsed ? "px-2.5" : "px-3.5",
         className,
       )}
     >
@@ -215,7 +306,7 @@ export function HomeV2Sidebar({
         <Link
           href={`/${locale}/home-sidebar`}
           className={cn(
-            "inline-flex min-w-0 items-center outline-offset-2 focus-visible:rounded-lg",
+            "inline-flex min-w-0 items-center rounded-lg outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FF6900]",
             collapsed && "justify-center",
           )}
           aria-label={d.brand}
@@ -226,16 +317,16 @@ export function HomeV2Sidebar({
               M
             </span>
           ) : (
-            <MutolaaLogo className="h-7 sm:h-8" />
+            <MutolaaLogo className="h-7 w-auto max-w-[9.5rem]" />
           )}
         </Link>
-        {onNavigate === undefined ? (
+        {onToggleCollapse ? (
           <button
             type="button"
             onClick={onToggleCollapse}
             className={cn(
               buttonVariants({ variant: "secondary", size: "sm" }),
-              "size-9 shrink-0 rounded-lg border border-neutral-200/80 bg-white p-0 text-neutral-600 shadow-sm hover:bg-neutral-50",
+              "size-9 shrink-0 rounded-lg border border-neutral-200/90 bg-white p-0 text-neutral-600 shadow-sm hover:bg-neutral-50",
               collapsed && "mt-1",
             )}
             aria-label={collapsed ? d.homeV2.expand : d.homeV2.collapse}
@@ -243,8 +334,8 @@ export function HomeV2Sidebar({
           >
             <IconPanelLeft
               className={cn(
-                "size-4 transition-transform",
-                collapsed && "opacity-80",
+                "size-4 transition-transform duration-200",
+                collapsed && "scale-x-[-1]",
               )}
             />
           </button>
@@ -252,113 +343,105 @@ export function HomeV2Sidebar({
       </div>
 
       {!collapsed ? (
-        <Suspense
-          fallback={
-            <div
-              className="h-11 w-full animate-pulse rounded-xl bg-white/50"
-              aria-hidden
-            />
-          }
-        >
-          <NavbarSearch
-            locale={locale}
-            placeholder={d.homeV2.searchPlaceholder}
-            className="max-w-none [&_form]:max-w-none"
-          />
-        </Suspense>
+        <NavbarSearch
+          locale={locale}
+          placeholder={d.homeV2.searchPlaceholder}
+          className="max-w-none [&_form]:max-w-none"
+        />
       ) : null}
 
       <nav
         aria-label="Primary"
-        className="flex min-h-0 flex-1 flex-col gap-0.5"
+        className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto"
       >
-        <Link
+        <SidebarNavLink
           href={`/${locale}/home-sidebar`}
-          className={navBtn(isHomeActive)}
-          aria-label={collapsed ? d.homeV2.sidebar.home : undefined}
-          onClick={onNavigate}
+          active={isHomeActive}
+          collapsed={collapsed}
+          onNavigate={onNavigate}
+          ariaLabel={collapsed ? d.homeV2.sidebar.home : undefined}
+          icon={<IconHome className={iconClass} />}
         >
-          <IconHome className={iconClass} />
-          {!collapsed ? d.homeV2.sidebar.home : null}
-        </Link>
-        <Link
+          {d.homeV2.sidebar.home}
+        </SidebarNavLink>
+        <SidebarNavLink
           href={`/${locale}/collections`}
-          className={navBtn(pathname.includes("/collections"))}
-          aria-label={collapsed ? d.homeV2.sidebar.collections : undefined}
-          onClick={onNavigate}
+          active={isCollectionsActive}
+          collapsed={collapsed}
+          onNavigate={onNavigate}
+          ariaLabel={collapsed ? d.homeV2.sidebar.collections : undefined}
+          icon={<IconLayers className={iconClass} />}
         >
-          <IconLayers className={iconClass} />
-          {!collapsed ? d.homeV2.sidebar.collections : null}
-        </Link>
-        <Link
-          href={`/${locale}/catalog`}
-          className={navBtn(pathname.includes("/catalog"))}
-          aria-label={collapsed ? d.homeV2.sidebar.audiobooks : undefined}
-          onClick={onNavigate}
+          {d.homeV2.sidebar.collections}
+        </SidebarNavLink>
+        <SidebarNavLink
+          href={catalogAudioHref(locale)}
+          active={isAudioActive}
+          collapsed={collapsed}
+          onNavigate={onNavigate}
+          ariaLabel={collapsed ? d.homeV2.sidebar.audiobooks : undefined}
+          icon={<IconHeadphones className={iconClass} />}
         >
-          <IconHeadphones className={iconClass} />
-          {!collapsed ? d.homeV2.sidebar.audiobooks : null}
-        </Link>
-        <Link
-          href={megaNavCategoryHref(locale, fictionItem)}
-          className={navBtn(false)}
-          aria-label={collapsed ? d.homeV2.sidebar.fiction : undefined}
-          onClick={onNavigate}
+          {d.homeV2.sidebar.audiobooks}
+        </SidebarNavLink>
+        <SidebarNavLink
+          href={catalogFictionHref(locale)}
+          active={isFictionActive}
+          collapsed={collapsed}
+          onNavigate={onNavigate}
+          ariaLabel={collapsed ? d.homeV2.sidebar.fiction : undefined}
+          icon={<IconBook className={iconClass} />}
         >
-          <IconBook className={iconClass} />
-          {!collapsed ? d.homeV2.sidebar.fiction : null}
-        </Link>
-        <Link
-          href={megaNavCategoryHref(locale, scienceItem)}
-          className={navBtn(false)}
-          aria-label={collapsed ? d.homeV2.sidebar.science : undefined}
-          onClick={onNavigate}
+          {d.homeV2.sidebar.fiction}
+        </SidebarNavLink>
+        <SidebarNavLink
+          href={catalogScienceHref(locale)}
+          active={isScienceActive}
+          collapsed={collapsed}
+          onNavigate={onNavigate}
+          ariaLabel={collapsed ? d.homeV2.sidebar.science : undefined}
+          icon={<IconFlask className={iconClass} />}
         >
-          <IconFlask className={iconClass} />
-          {!collapsed ? d.homeV2.sidebar.science : null}
-        </Link>
+          {d.homeV2.sidebar.science}
+        </SidebarNavLink>
       </nav>
 
-      <div
-        className={cn(
-          "mt-auto flex flex-col gap-4 border-t border-neutral-200/80 pt-5",
-        )}
-      >
+      <div className="mt-auto flex shrink-0 flex-col gap-3 border-t border-neutral-200/90 pt-4">
         <Link
           href={`/${locale}/about`}
-          className={cn(
-            linkVariants(),
-            "text-sm text-neutral-600 hover:text-neutral-900",
-            collapsed && "flex justify-center",
-          )}
-          aria-label={collapsed ? d.homeV2.sidebar.about : undefined}
           onClick={onNavigate}
-        >
-          {collapsed ? (
-            <span className="text-xs font-medium text-neutral-500">i</span>
-          ) : (
-            d.homeV2.sidebar.about
+          aria-label={collapsed ? d.homeV2.sidebar.about : undefined}
+          className={cn(
+            "flex items-center gap-2.5 rounded-xl px-2 py-2 text-sm transition-colors",
+            "outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FF6900]",
+            pathname.includes("/about")
+              ? "bg-white font-medium text-neutral-900 ring-1 ring-neutral-200/90"
+              : "text-neutral-600 hover:bg-white/70 hover:text-neutral-900",
+            collapsed && "justify-center px-0",
           )}
+        >
+          <IconInfo className="size-[18px] shrink-0 text-neutral-500" />
+          {!collapsed ? d.homeV2.sidebar.about : null}
         </Link>
         <Link
           href={`/${locale}/help`}
-          className={cn(
-            linkVariants(),
-            "text-sm text-neutral-600 hover:text-neutral-900",
-            collapsed && "flex justify-center",
-          )}
-          aria-label={collapsed ? d.homeV2.sidebar.help : undefined}
           onClick={onNavigate}
-        >
-          {collapsed ? (
-            <span className="text-xs font-medium text-neutral-500">?</span>
-          ) : (
-            d.homeV2.sidebar.help
+          aria-label={collapsed ? d.homeV2.sidebar.help : undefined}
+          className={cn(
+            "flex items-center gap-2.5 rounded-xl px-2 py-2 text-sm transition-colors",
+            "outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#FF6900]",
+            pathname.includes("/help")
+              ? "bg-white font-medium text-neutral-900 ring-1 ring-neutral-200/90"
+              : "text-neutral-600 hover:bg-white/70 hover:text-neutral-900",
+            collapsed && "justify-center px-0",
           )}
+        >
+          <IconHelpCircle className="size-[18px] shrink-0 text-neutral-500" />
+          {!collapsed ? d.homeV2.sidebar.help : null}
         </Link>
 
         {!collapsed ? (
-          <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-700">
+          <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-sm">
             <span className="shrink-0 text-neutral-500">
               {d.homeV2.sidebar.languagePrefix}
             </span>
@@ -366,7 +449,7 @@ export function HomeV2Sidebar({
               <Dropdown.Trigger
                 className={cn(
                   buttonVariants({ variant: "ghost", size: "sm" }),
-                  "h-9 min-w-0 gap-1 px-2 font-medium text-neutral-800 hover:bg-white/80",
+                  "h-9 min-w-0 max-w-full gap-1 px-2 font-medium text-neutral-800 hover:bg-white/90",
                 )}
               >
                 <span className="truncate">{d.locale[locale]}</span>
@@ -399,7 +482,7 @@ export function HomeV2Sidebar({
               <Dropdown.Trigger
                 className={cn(
                   buttonVariants({ variant: "secondary", size: "sm" }),
-                  "size-9 p-0",
+                  "size-9 border border-neutral-200/90 bg-white p-0 shadow-sm",
                 )}
                 aria-label={d.header.languageMenu}
               >
@@ -430,13 +513,13 @@ export function HomeV2Sidebar({
           </div>
         )}
 
-        <div className={cn("flex flex-col gap-2", collapsed && "items-center")}>
+        <div className={cn("flex flex-col gap-2 pt-1", collapsed && "items-center")}>
           <Link
             href={`/${locale}/premium`}
             className={cn(
-              buttonVariants({ variant: "primary", size: "md" }),
-              "h-11 w-full justify-center rounded-xl bg-[#FF6900] font-semibold text-white shadow-sm hover:opacity-[0.96]",
-              collapsed && "size-11 min-w-0 px-0",
+              "flex h-11 w-full items-center justify-center rounded-xl bg-[#FF6900] text-sm font-semibold text-white shadow-sm",
+              "transition-opacity hover:opacity-[0.95] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6900]",
+              collapsed && "size-11 min-w-0 max-w-none px-0",
             )}
             aria-label={collapsed ? d.homeV2.auth.login : undefined}
             onClick={onNavigate}
@@ -463,7 +546,7 @@ export function HomeV2Sidebar({
               href={`/${locale}/premium`}
               className={cn(
                 linkVariants(),
-                "text-center text-sm font-medium text-neutral-600 hover:text-neutral-900",
+                "py-1 text-center text-sm font-medium text-neutral-600 hover:text-neutral-900",
               )}
               onClick={onNavigate}
             >
@@ -473,11 +556,45 @@ export function HomeV2Sidebar({
         </div>
 
         {!collapsed ? (
-          <Text size="sm" variant="muted" className="text-center text-xs">
+          <Text
+            size="sm"
+            variant="muted"
+            className="text-center text-[11px] leading-relaxed"
+          >
             © {new Date().getFullYear()} {d.brand}
           </Text>
         ) : null}
       </div>
     </div>
+  );
+}
+
+function SidebarSuspenseFallback({ collapsed = false }: { collapsed?: boolean }) {
+  return (
+    <div
+      className={cn(
+        "flex min-h-[280px] flex-col gap-4 py-5",
+        collapsed ? "px-2.5" : "px-3.5",
+      )}
+    >
+      <div className="h-9 animate-pulse rounded-xl bg-white/50" />
+      <div className="h-11 animate-pulse rounded-xl bg-white/50" />
+      <div className="flex flex-1 flex-col gap-2">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <div
+            key={i}
+            className="h-10 animate-pulse rounded-xl bg-white/40"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function HomeV2Sidebar(props: HomeV2SidebarProps) {
+  return (
+    <Suspense fallback={<SidebarSuspenseFallback collapsed={props.collapsed} />}>
+      <HomeV2SidebarInner {...props} />
+    </Suspense>
   );
 }
